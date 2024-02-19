@@ -9,8 +9,7 @@ const ChatProvider = (props) => {
   const [notification, setNotification] = useState([]);
 
   const navigate = useNavigate();
-// writing  in the context api it will aceeseable to all the component in our app
-  // remember we are using the local storage to save the data in autehncation folder 
+
   useEffect(() => {
     const userInformation = JSON.parse(localStorage.getItem("userInformation"));
     setUser(userInformation);
