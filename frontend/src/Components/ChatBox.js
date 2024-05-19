@@ -5,7 +5,7 @@ import { Box } from "@chakra-ui/layout";
 import SingleChat from "./SingleChat";
 import ChatContext from '../Context/chat-context';
 
-const Chatbox = ({ fetchAgain, setFetchAgain }) => {
+const Chatbox = ({ fetchAgain, setFetchAgain ,fetchMessages }) => {
 
   const { selectedChat } = useContext(ChatContext);
 
@@ -20,7 +20,7 @@ const Chatbox = ({ fetchAgain, setFetchAgain }) => {
       borderRadius="lg"
       borderWidth="1px"
     >
-      <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
+      <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} fetchMessages={fetchMessages} />
     </Box>
   );
 };

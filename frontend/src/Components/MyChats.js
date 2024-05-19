@@ -11,9 +11,11 @@ import { Button } from "@chakra-ui/react";
 
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
-  const { selectedChat, setSelectedChat, user, chats, setChats } = useContext(ChatContext);
-  const toast = useToast();
 
+  const { selectedChat, setSelectedChat, user, chats, setChats } = useContext(ChatContext);
+
+  const toast = useToast();
+  
   const fetchChats = async () => {
     try {
       const config = {
@@ -22,11 +24,14 @@ const MyChats = ({ fetchAgain }) => {
 
       const { data } = await axios.get("/api/chat", config);
       setChats(data);
+      console.log(data, 'fetching all users chats in my chats');
+
     } catch (error) {
+
       console.log(error.message);
       toast({
-        title: "Error Occurred!",
-        description: "Failed to load chats",
+        title: "Error Occured!",
+        description: "Failed to Load the chats",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -36,13 +41,14 @@ const MyChats = ({ fetchAgain }) => {
   };
 
   useEffect(() => {
-    setLoggedUser(JSON.parse(localStorage.getItem("userInformation")));
+    setLoggedUser(JSON.parse(localStorage.getItem("userInformation"))); 
     fetchChats();
+    // eslint-disable-next-line
   }, [fetchAgain]);
 
   return (
     <Box
-      d={{ base: selectedChat ? "none" : "flex", md: "flex" }}
+      display={{ base: selectedChat ? "none" : "flex", md: "flex" }}
       flexDir="column"
       alignItems="center"
       p={3}
@@ -56,7 +62,7 @@ const MyChats = ({ fetchAgain }) => {
         px={3}
         fontSize={{ base: "28px", md: "30px" }}
         fontFamily="Work sans"
-        d="flex"
+        display="flex"
         w="100%"
         justifyContent="space-between"
         alignItems="center"
@@ -73,7 +79,7 @@ const MyChats = ({ fetchAgain }) => {
         </GroupChatModal>
       </Box>
       <Box
-        d="flex"
+        display="flex"
         flexDir="column"
         p={3}
         bg="#F8F8F8"
@@ -86,7 +92,6 @@ const MyChats = ({ fetchAgain }) => {
           <Stack overflowY="scroll">
             {chats.map((chat, i) => (
               <Box
-                key={i}
                 onClick={() => setSelectedChat(chat)}
                 cursor="pointer"
                 bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
@@ -94,9 +99,10 @@ const MyChats = ({ fetchAgain }) => {
                 px={3}
                 py={2}
                 borderRadius="lg"
+                key={chat?._id} 
               >
                 <Text>
-                {!chat.isGroupChat ? getSender(loggedUser, chat.users) : chat.chatName}
+                  {!chat?.isGroupChat ? getSender(loggedUser, chat?.users) : chat?.chatName}
                 </Text>
               </Box>
             ))}

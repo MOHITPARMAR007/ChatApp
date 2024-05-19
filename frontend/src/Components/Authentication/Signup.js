@@ -115,7 +115,7 @@ const Signup = () => {
 
       localStorage.setItem("userInformation", JSON.stringify(data));
       setPicLoading(false);
-      navigate("/chats");
+      navigate("/Chats");
 
     } catch (error) {
       console.log(error.message);
