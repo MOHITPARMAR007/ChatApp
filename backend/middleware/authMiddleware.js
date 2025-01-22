@@ -2,6 +2,10 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/UserModel");
 const asyncHandler = require("express-async-handler");
 console.log(process.env.JWT_SECRET); 
+
+// if secrete found then secrete is used else 'mohit' as used as secrete 
+const secrete = process.env.JWT_SECRET ?? 'mohit' ;
+
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
@@ -13,7 +17,7 @@ const protect = asyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
 
       //decodes token id
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, secrete);
       console.log(process.env.JWT_SECRET);  
       
       req.user = await User.findById(decoded.id).select("-password");
