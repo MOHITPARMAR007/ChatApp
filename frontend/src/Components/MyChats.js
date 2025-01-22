@@ -21,8 +21,8 @@ const MyChats = ({ fetchAgain }) => {
       const config = {
         headers: { Authorization: `Bearer ${user.token}`}
       };
-
-      const { data } = await axios.get("/api/chat", config);
+//add base route which are missing
+      const { data } = await axios.get("http://localhost:5000/api/chat", config);
       setChats(data);
       console.log(data, 'fetching all users chats in my chats');
 
